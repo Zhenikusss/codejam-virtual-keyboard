@@ -1,0 +1,91 @@
+body {
+    margin: 0;
+}
+.wrapper {
+    width: 650px;
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+textarea {
+    width: calc(100% - 12px);
+    resize: none;
+    box-shadow: inset 0px 0px 5px 0px #0300e0;
+    padding: 5px;
+    font-size: 18px;
+    color: #2d00e0;
+    font-weight: bold;
+}
+.key {
+    border: 1px solid;
+    width: 33px;
+    height: 34px;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 3px;
+    cursor: pointer;
+    transition: 0.1s linear;
+    box-shadow: 0 0 30px #0300e0;
+    font-size: 18px;
+}
+.keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 3px solid #0300e0;
+    padding: 20px;
+    background: black;
+    color: #ffffff;
+    box-shadow: 0 0 10px #0300e0;
+}
+.key-Backspace {
+    width: 103px;
+}
+.key-CapsLock {
+    width: 104px;
+}
+.key-ShiftLeft,
+.key-ShiftRight {
+    width: 87px;
+}
+.key-Enter {
+    width: 70px;
+}
+.key-Space {
+    width: 261px;
+}
+.key-ControlRight,
+.key-ControlLeft {
+    width: 49px;
+}
+.key-Tab,
+.key-Delete {
+    width: 49px;
+}
+.key:nth-child(1),
+.key-Tab,
+.key-CapsLock,
+.key:nth-child(43),
+.key:nth-child(56) {
+    margin-left: 0px;
+}
+
+.active,
+.key:hover {
+    background: #ffffff;
+    color: #0300e0;
+    box-shadow: 0 0 30px #0300e0;
+}
+.activeClick {
+    transform: scale(1.1);
+}
+.text {
+    margin-top: 50px;
+    width: 100%;
+    font-size: 18px;
+}
