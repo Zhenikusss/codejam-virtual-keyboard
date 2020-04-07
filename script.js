@@ -279,9 +279,36 @@ function drawInput() {
 
 function drawKeyboardEn() {
   const keyBoard = document.createElement('div');
-  keyBoard.className = 'keyboard';
+  keyBoard.className = 'keyboard keyboardEn';
   for (key in keysEn) {
     keyBoard.innerHTML += `<div class="key key-${key}">${keysEn[key]}</div>`;
+    document.querySelector('div.wrapper').append(keyBoard);
+  }
+}
+
+function drawKeyboardEnChar() {
+  const keyBoard = document.createElement('div');
+  keyBoard.className = 'keyboard keyboardEnChar';
+  for (key in keysEnChar) {
+    keyBoard.innerHTML += `<div class="key key-${key}">${keysEnChar[key]}</div>`;
+    document.querySelector('div.wrapper').append(keyBoard);
+  }
+}
+
+function drawKeyboardRu() {
+  const keyBoard = document.createElement('div');
+  keyBoard.className = 'keyboard keyboardRu';
+  for (key in keysRu) {
+    keyBoard.innerHTML += `<div class="key key-${key}">${keysRu[key]}</div>`;
+    document.querySelector('div.wrapper').append(keyBoard);
+  }
+}
+
+function drawKeyboardRuChar() {
+  const keyBoard = document.createElement('div');
+  keyBoard.className = 'keyboard keyboardRuChar';
+  for (key in keysRuChar) {
+    keyBoard.innerHTML += `<div class="key key-${key}">${keysRuChar[key]}</div>`;
     document.querySelector('div.wrapper').append(keyBoard);
   }
 }
@@ -346,26 +373,20 @@ function pressButton() {
   const textarea = document.querySelector('textarea');
   input.addEventListener('keydown', (el) => {
     el.preventDefault();
+
+    if (el.shiftKey === true) {
+      pressUppercase();
+    }
+    
     let count = 0;
-    if (el.shiftKey && el.altKey) {
-        console.log('alt+shift');
-        
-    }
-    if (el.shiftKey) {
-      Object.assign(keysEn, keysEnChar);
-    }
     for (key in keysEn) {
       if (key === event.code) {
         const btn = document.querySelectorAll('div.key');
         btn[count].classList.add('active');
         btn[count].classList.add('activeClick');
-
         if (keysEn[key] === 'Enter') {
           textarea.value += '\n';
         } else if (keysEn[key] === 'Shift') {
-
-          
-            
         } else if (keysEn[key] === 'Tab') {
           textarea.value += '\t';
         } else if (keysEn[key] === 'Space') {
@@ -374,7 +395,6 @@ function pressButton() {
         } else if (keysEn[key] === 'Alt') {
         } else if (keysEn[key] === 'Del') {
         } else if (keysEn[key] === 'CapsLock') {
-          Object.assign(keysEn, keysEnChar);
         } else if (keysEn[key] === 'Backspace') {
           textarea.value = textarea.value.slice(0, -1);
         } else {
@@ -385,10 +405,12 @@ function pressButton() {
     }
   });
   input.addEventListener('keyup', (el) => {
-    let count = 0;
-    if (el.shiftKey) {
-      Object.assign(keysEnChar, keysRu);
+
+    if (el.shiftKey === false) {
+      pressLowercase();
     }
+
+    let count = 0;
     for (key in keysEn) {
       if (key === event.code) {
         const btn = document.querySelectorAll('div.key');
@@ -400,9 +422,71 @@ function pressButton() {
   });
 }
 
+function pressUppercase() {
+  const input = document.querySelector('div.text-input');
+  const textarea = document.querySelector('textarea');
+
+  document.querySelector('div.keyboard').style.display = 'none';
+  document.querySelector('div.keyboardEnChar').style.display = 'flex';
+
+  input.addEventListener('keydown', (el) => {
+    let count = 0;
+    el.preventDefault();
+    for (key in keysEnChar) {
+      if (key === event.code) {
+        const btn = document.querySelectorAll('div.keyboardEnChar > div.key');
+        btn[count].classList.add('active');
+        btn[count].classList.add('activeClick');
+        if (keysEnChar[key] === 'Enter') {
+          textarea.value += '\n';
+        } else if (keysEnChar[key] === 'Shift') {
+        } else if (keysEnChar[key] === 'Tab') {
+          textarea.value += '\t';
+        } else if (keysEnChar[key] === 'Space') {
+          textarea.value += ' ';
+        } else if (keysEnChar[key] === 'Ctrl') {
+        } else if (keysEnChar[key] === 'Alt') {
+        } else if (keysEnChar[key] === 'Del') {
+        } else if (keysEnChar[key] === 'CapsLock') {
+        } else if (keysEnChar[key] === 'Backspace') {
+          textarea.value = textarea.value.slice(0, -1);
+        } else {
+          textarea.value += keysEnChar[key];
+        }
+      }
+      count++;
+    }
+  });
+
+  input.addEventListener('keyup', (el) => {
+    let count = 0;
+    for (key in keysEn) {
+      if (key === event.code) {
+        const btn = document.querySelectorAll('div.keyboardEnChar > div.key');
+        btn[count].classList.remove('active');
+        btn[count].classList.remove('activeClick');
+      }
+      count++;
+    }
+  });
+}
+
+function pressLowercase() {
+  document.querySelector('div.keyboardEn').style.display = 'flex';
+  document.querySelector('div.keyboardEnChar').style.display = 'none';
+}
+ 
+function changeLang() {
+  document.querySelector('div.keyboard').style.display = 'none';
+  document.querySelector('div.keyboardRu').style.display = 'flex';
+}
+
 drawBody();
 drawInput();
 drawKeyboardEn();
+drawKeyboardEnChar();
+drawKeyboardRu();
+drawKeyboardRuChar();
 textFocus();
 activeButton();
 pressButton();

@@ -41,6 +41,10 @@ textarea {
     background: black;
     color: #ffffff;
     box-shadow: 0 0 10px #0300e0;
+    display: none;
+}
+.keyboardEn {
+    display: flex;
 }
 .key-Backspace {
     width: 103px;
