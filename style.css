@@ -37,7 +37,6 @@ textarea {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    border: 3px solid #0300e0;
     padding: 20px;
     background: black;
     color: #ffffff;
@@ -88,4 +87,5 @@ textarea {
     margin-top: 50px;
     width: 100%;
     font-size: 18px;
+    display: none;
 }

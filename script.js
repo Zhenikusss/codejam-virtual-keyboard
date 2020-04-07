@@ -280,7 +280,6 @@ function drawInput() {
 function drawKeyboardEn() {
   const keyBoard = document.createElement('div');
   keyBoard.className = 'keyboard';
-
   for (key in keysEn) {
     keyBoard.innerHTML += `<div class="key key-${key}">${keysEn[key]}</div>`;
     document.querySelector('div.wrapper').append(keyBoard);
@@ -302,16 +301,11 @@ function createText() {
   document.querySelector('div.wrapper').append(text);
 }
 
-function drawChanges() {
-
-}
-
 function activeButton() {
   const btn = document.querySelectorAll('div.key');
   const textarea = document.querySelector('textarea');
   const textareaSelectionStart = textarea.selectionStart;
   const textareaSelectionEnd = textarea.selectionEnd;
-
   btn.forEach((el) => {
     el.addEventListener('mousedown', (e) => {
       btn.forEach((el) => {
@@ -351,11 +345,15 @@ function pressButton() {
   const input = document.querySelector('div.text-input');
   const textarea = document.querySelector('textarea');
   input.addEventListener('keydown', (el) => {
-    if (el.shiftKey) {
-
-    }
     el.preventDefault();
     let count = 0;
+    if (el.shiftKey && el.altKey) {
+        console.log('alt+shift');
+        
+    }
+    if (el.shiftKey) {
+      Object.assign(keysEn, keysEnChar);
+    }
     for (key in keysEn) {
       if (key === event.code) {
         const btn = document.querySelectorAll('div.key');
@@ -364,16 +362,19 @@ function pressButton() {
 
         if (keysEn[key] === 'Enter') {
           textarea.value += '\n';
+        } else if (keysEn[key] === 'Shift') {
+
+          
+            
         } else if (keysEn[key] === 'Tab') {
           textarea.value += '\t';
         } else if (keysEn[key] === 'Space') {
           textarea.value += ' ';
         } else if (keysEn[key] === 'Ctrl') {
         } else if (keysEn[key] === 'Alt') {
+        } else if (keysEn[key] === 'Del') {
         } else if (keysEn[key] === 'CapsLock') {
-        } else if (keysEn[key] === 'Shift') {
-          console.log('shift');
-          btn[count].classList.remove('active');
+          Object.assign(keysEn, keysEnChar);
         } else if (keysEn[key] === 'Backspace') {
           textarea.value = textarea.value.slice(0, -1);
         } else {
@@ -384,10 +385,10 @@ function pressButton() {
     }
   });
   input.addEventListener('keyup', (el) => {
-    if (el.shiftKey === false) {
-
-    }
     let count = 0;
+    if (el.shiftKey) {
+      Object.assign(keysEnChar, keysRu);
+    }
     for (key in keysEn) {
       if (key === event.code) {
         const btn = document.querySelectorAll('div.key');
